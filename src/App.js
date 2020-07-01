@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Admin, Resource , EditGuesser} from 'react-admin';
+import { CustomerList } from './components/customers';
+import { OrderList, OrderEdit } from './components/orders';
+import { ProductList, ProductEdit, ProductCreate } from './components/products';
+import jsonServerProvider from 'ra-data-json-server';
+import PostIcon from '@material-ui/icons/Book';
+import UserIcon from '@material-ui/icons/Group';
+//import dataProvider from './providers/dataProvider';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const dataProvider = jsonServerProvider('https://my-json-server.typicode.com/virividivici/admin-data');
+
+const App = () => (
+  <Admin dataProvider={dataProvider}>
+    <Resource name="orders" list={OrderList} edit={OrderEdit} />
+    <Resource name="customers" list={CustomerList} edit={EditGuesser}  icon={UserIcon} />
+    <Resource name="products" list={ProductList} edit={ProductEdit} create={ProductCreate} icon={PostIcon} />
+  </Admin>
+);
 
 export default App;
